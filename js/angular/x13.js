@@ -3,7 +3,7 @@
 
     angular.module('myModule', ['ui.bootstrap']);
 
-    var x13 = angular.module('mainModule', ['ngResource', 'ui.ace', 'myModule', 'ngLoadScript', 'ngFileUpload', 'angularFileUpload']);
+    //var x13 = angular.module('mainModule', ['ngResource', 'ui.ace', 'myModule', 'ngLoadScript', 'ngFileUpload', 'angularFileUpload']);
 
 
     x13.directive('loading', function () {
@@ -50,16 +50,21 @@
 
 
     <!-- search controller for requesting solr  -->
-    x13.controller('SearchController', ['$http', '$rootScope', '$scope', 'Upload', 'FileUploader', function ($http, $rootScope, $scope, Upload, FileUploader) {
+    x13.controller('SearchController', ['$http', '$rootScope', '$scope', 'Upload', 'FileUploader',"DribblePlayer",
+        function ($http, $rootScope, $scope, Upload, FileUploader, DribblePlayer) {
 
         var startPage = "startPage.html";
         $scope.ipAddresse = '127.0.0.1';
         $scope.resultPage = "resultPage.html";
         $scope.products = gems;
         $scope.templates = [
-            //{name: 'Solr/Lucene', page: 'settingsSolr.html'},
-            {name: 'Terrier', page: 'settingsTerrier.html'}
+            {name: 'Solr/Lucene', page: 'settingsSolr.html'},
+            {name: 'Terrier', page: 'settingsTerrier.html'},
+            {name: 'Common configuration', page: 'commonSettings.html'}
         ];
+
+        $scope.players = [];
+        $scope.players.push(new DribblePlayer(""));
 
         $scope.selectedPage = startPage;
 
