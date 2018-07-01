@@ -1,0 +1,104 @@
+<h2 xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">Test run</h2>
+
+<div>
+    Select the configuration files for the test run. The test is evaluated for each configuration file and the
+    results are saved in ... <br/>
+    Furthermore select the search engines which should be used for testing.
+</div>
+
+<div id="testSettings" data-ng-init="settingsForm.getSearchEngineConfigs()">
+
+    <div class="propertyBox">
+        <div class="header">Solr test run settings</div>
+
+        <div class="property">
+            <label class="label">
+                Select Solr composition for the test run:
+            </label>
+
+            <ul>
+                <li class="testConfigs" ng-repeat="solrTestFile in solrTestConfigurations">
+                    <input type="checkbox" ng-model="solrTestFile.selected">{{solrTestFile.name}}
+
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="property">
+            <label class="label">
+                Select Solr configuration file for the test run:
+            </label>
+            <br/>
+
+            <div class="testConfigsBox">
+                <div class="testConfigsHeader">
+                    <span style="display: block; float:left; margin-left: 5em">File name</span>
+                    <span style="display: block; float: right; margin-right: 5em">reindex</span><br/>
+                </div>
+
+                <ul >
+                    <li class="testConfigs" ng-repeat="configFile in solrConfigurations">
+                        <input type="checkbox" ng-model="configFile.selected" /><span>{{configFile.name}}</span>
+                        <input class="reIndexBox" type="checkbox" ng-model="configFile.reindex" >
+
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="propertyBox">
+        <div class="header">Terrier test run settings</div>
+        <div class="property">
+            <label class="label">
+                Select Terrier composition for the test run:
+            </label>
+
+            <ul>
+                <li class="testConfigs" ng-repeat="terrierTestFile in terrierTestConfigurations">
+                    <input type="checkbox" ng-model="terrierTestFile.selected">{{terrierTestFile.name}}
+
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="property">
+            <label class="label">
+                Select Terrier configuration file for the test run:
+            </label>
+            <br/>
+
+            <div class="testConfigsBox">
+                <div class="testConfigsHeader">
+                    <span style="display: block; float:left; margin-left: 5em">File name</span>
+                    <span style="display: block; float: right; margin-right: 5em">reindex</span><br/>
+                </div>
+
+                <ul >
+                    <li class="testConfigs" ng-repeat="configFile in terrierConfigurations">
+                        <input type="checkbox" ng-model="configFile.selected" /><span>{{configFile.name}}</span>
+                        <input class="reIndexBox" type="checkbox" ng-model="configFile.reindex" >
+
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="startTestButton">
+        <button type="submit" class="btn btn-primary"  ng-click="settingsForm.runTest()">start test</button>
+    </div>
+
+    <loading></loading>
+</div>
+
+
+
+
+
+
