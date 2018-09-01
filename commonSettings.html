@@ -1,73 +1,114 @@
-<tabset data-ng-init="settingsForm.getTerrierElements()">
-    <tab heading="Common configuration">
-        <h2>Settings for Terrier</h2>
+<h2>Common configuration settings</h2>
 
-        <div>
-            This page is for define configurations for Terrier and Solr/Lucene.
-        </div>
+<div>
+    This page is for define configurations for Terrier and Solr/Lucene.
+</div>
 
 
+<div class="propertyBox">
 
+    <div class="property">
+        <label for="selectedCommonIndexer">Tokenizer: </label>
+        <select id="selectedCommonIndexer" name="commonTokenizer" ng-model="selectedCommonIndexer"
+                ng-options="indexer for indexer in commonConfig.getIndexer()">
+        </select>
+    </div>
 
+    <div class="property">
+        <label for="selectedWeightingModel">Weighting models: </label>
+        <select id="selectedWeightingModel" name="commonWeightingModel" ng-model="selectedWeightingModel"
+                ng-options="weightingModel for weightingModel in commonConfig.getWeightingModels()">
+        </select>
 
-        <div class="loadSettings">
-
-            <details>
-                <summary>Expand to switch between configuration files</summary>
-
-                <div id="configFileContainer" style="display: inline-block; width: 30%">
-
-                    <ul id="configFileList">
-                        <li style="background-color: rgba(158, 158, 174, 0.64); border: 1px solid #90bade !important;">Configuration files</li>
-                        <li class="configFile" ng-repeat="configFile in terrierConfigResult">
-                            <a ng-click="searchCtrl.displayTerrierConfigDescription (configFile.name)" ng-href="#">{{configFile.name}}</a>
-                        </li>
-                    </ul>
-                    <div class="configFileMsg" />
-                </div>
-                <div class="configDescription" >
-                    Description: <br/>
-                    {{terrierConfigFileDescription}}
-                </div>
-                <div class="configButton">
-                    <button type="submit" class="btn btn-primary"  ng-click="settingsForm.loadTerrierEditor()">load into editor</button>
-                </div>
-
-            </details>
-
-        </div>
-
-
-        <div ui-ace="{
-                useWrapMode : true,
-                showGutter: true,
-                mode: 'properties',
-                firstLineNumber: 1,
-                onLoad: aceLoaded,
-                onChange: aceChanged
-                }"
-             ng-model="settingsForm.terrierConfigContent">
-        </div>
-        <div class="saveButton">
-            <button id="opener" type="submit" class="btn btn-primary" onclick="openDialog()">save as</button>
-            <button type="submit" class="btn btn-primary" ng-click="settingsForm.saveSolrChanges()">save</button>
-            <!--<button type="submit" class="btn btn-primary" ng-click="settingsForm.saveSolrChanges()">load default</button>-->
-        </div>
-
-        <div id="dialog" title="Save config file">
-            <p>Type in a convenient name for the settings file and add a description.</p>
-            <label for="name">File: </label>
-            <input id="name" class="myInput" type="text" /> <br/><br/>
-            <label for="description">Description: </label>
-            <textarea id="description" rows="4" cols="42" type="text" />
-            <div class="dialogButton">
-                <button type="submit" class="btn btn-primary" onclick="saveNewTerrierConfigFile()">save</button>
+        <div ng-if="selectedWeightingModel == 'BM25'">
+            <div class="property">
+                <label for="weightK1">k1: </label>
+                <input id="weightK1" ng-model="weightK1" value="2" type="text" />
             </div>
         </div>
 
-    </tab>
+        <div ng-if="selectedWeightingModel == 'tf-idf' || selectedWeightingModel == 'BM25'">
+            <div class="property">
+                <label for="weightB">b: </label>
+                <input id="weightB" ng-model="weightB" value="2" type="text" />
+            </div>
+        </div>
+    </div>
 
-</tabset>
+    <div class="property">
+        <label for="commonStopWordsEnabled">Stop-words: </label>
+        <input id="commonStopWordsEnabled" name="commonStopWords" type="checkbox" ng-model="commonStopWordsEnabled">
+    </div>
+
+    <div class="property">
+        <label for="selectedCommonStemmer">Stemmer: </label>
+        <select id="selectedCommonStemmer" name="commonStemmer" ng-model="selectedCommonStemmer"
+                ng-options="stemmer for stemmer in commonConfig.getStemmer()">
+        </select>
+        <div ng-if="selectedCommonStemmer != '' ">
+            <label for="selectedCommonStemmerLang">Language: </label>
+            <select id="selectedCommonStemmerLang" name="selectedCommonStemmerLang"
+                    ng-model="selectedCommonStemmerLang"
+                    ng-options="language for language in commonConfig.getSelectedCommonStemmerLang()" >
+            </select>
+        </div>
+
+    </div>
+
+    <div class="property">
+        <label for="selectedCommonNormalizer">Normalizer: </label>
+        <select id="selectedCommonNormalizer" name="commonNormalizer" ng-model="selectedCommonNormalizer"
+                ng-options="normalizer for normalizer in commonConfig.getNormalizer()">
+        </select>
+    </div>
+
+    <div class="property">
+        <label for="commonQueryExpansionEnabled">Query Expansion: </label>
+        <input id="commonQueryExpansionEnabled" name="commonQueryExp" type="checkbox" ng-model="commonQueryExpansionEnabled" />
+    </div>
+
+    <div class="property">
+        <label for="selectedCommonQueryOperator">Query operator for expressions: </label>
+        <select id="selectedCommonQueryOperator" name="commonQueryExpr" ng-model="selectedCommonQueryOperator"
+                ng-options="queryOperator for queryOperator in commonConfig.getOperators()">
+        </select>
+    </div>
+
+    <div class="property">
+        <label for="commonSplitOnWhiteSpace">Split on whitespace: </label>
+        <input id="commonSplitOnWhiteSpace" name="commonQueryExp" type="checkbox" ng-model="commonSplitOnWhiteSpace">
+    </div>
+
+
+</div>
+
+<button type="submit" class="btn btn-primary"
+        ng-click="settingsForm.saveCommonConfiguration()">
+    save
+</button>
+
+<div class="saveButton">
+    <button id="opener" type="submit" class="btn btn-primary" onclick="openDialog()">save as</button>
+
+</div>
+
+<div id="dialogg" title="Save config file">
+    <p>Type in a convenient name for the settings file and add a description.</p>
+    <label for="commonConfigName">File: </label>
+    <input id="commonConfigName" ng-model="commonConfigName" class="myInput" type="text" /> <br/><br/>
+    <label for="commonConfigDescription">Description: </label>
+    <textarea id="commonConfigDescription" ng-model="commonConfigDescription" rows="4" cols="42" type="text" />
+    <div class="dialogButton">
+
+        <button type="submit" class="btn btn-primary"
+                ng-click="settingsForm.saveCommonConfiguration()">
+            save
+        </button>
+    </div>
+</div>
+
+
+
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
 <script type="text/javascript">
     $(document).ready(function() {

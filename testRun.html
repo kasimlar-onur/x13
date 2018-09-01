@@ -57,14 +57,24 @@
                 Select Terrier composition for the test run:
             </label>
 
-            <ul>
-                <li class="testConfigs" ng-repeat="terrierTestFile in terrierTestConfigurations">
-                    <input type="checkbox" ng-model="terrierTestFile.selected">{{terrierTestFile.name}}
+            <div class="testConfigsBox container" style="width: inherit">
+                <div class="testConfigsHeader row">
+                    <span style="display: block; float:left; margin-left: 5em">Configuration name</span>
+                    <span style="display: block; float: right; margin-right: 5em">reindex</span><br/>
+                </div>
 
-                </li>
-            </ul>
+                <div class="row">
+                    <ul class="col-md-12">
+                        <li class="testConfigs col-md-12" ng-repeat="terrierTestFile in terrierTestConfigurations">
+                            <input type="checkbox" ng-model="terrierTestFile.selected">{{terrierTestFile.description}}
+                            <input type="checkbox" class="pull-right" ng-model="terrierTestFile.reindex">
+                        </li>
+                    </ul>
 
+                </div>
+            </div>
         </div>
+
 
         <div class="property">
             <label class="label">
@@ -72,20 +82,26 @@
             </label>
             <br/>
 
-            <div class="testConfigsBox">
-                <div class="testConfigsHeader">
-                    <span style="display: block; float:left; margin-left: 5em">File name</span>
-                    <span style="display: block; float: right; margin-right: 5em">reindex</span><br/>
+            <div class="testConfigsBox container" style="width: inherit">
+                <div class="testConfigsHeader row">
+                    <span style="display: block; float:left; margin-left: 5em">Collection name</span>
+                    <span style="display: block; float: right; margin-right: 5em">Test data</span><br/>
                 </div>
 
-                <ul >
-                    <li class="testConfigs" ng-repeat="configFile in terrierConfigurations">
-                        <input type="checkbox" ng-model="configFile.selected" /><span>{{configFile.name}}</span>
-                        <input class="reIndexBox" type="checkbox" ng-model="configFile.reindex" >
+                <div class="row">
+                    <ul class="col-md-12">
+                        <li class="testConfigs col-md-12" style="margin-bottom: 30px;" ng-repeat="info in collectionInfo">
+                            {{info.collectionName}}
 
+                            <ul class="pull-right">
+                                <li class="testConfigs" ng-repeat="confiruation in info.configurations">
+                                    <input type="checkbox" ng-model="confiruation.selected" />{{confiruation.name}}
+                                </li>
+                            </ul>
+                        </li>
 
-                    </li>
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

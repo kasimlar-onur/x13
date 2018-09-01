@@ -1,8 +1,12 @@
 
-x13.factory("DribblePlayer",function($http) {
+x13.factory("CommonConfig", function($http) {
 
-    // Define the DribbblePlayer function
-    var DribblePlayer = function(player) {
+
+    // Define the CommonConfig function
+    var CommonConfig = function() {
+
+
+
         // Define the initialize function
         this.initialize = function() {
             // Fetch the player from Dribbble
@@ -17,14 +21,38 @@ x13.factory("DribblePlayer",function($http) {
                 angular.extend(self, response.data);
             });
             */
-            alert(1);
         };
+
+        this.getIndexer = function () {
+            return  ["Emil", "Tobias", "Linus"];
+        };
+
+        this.getWeightingModels = function() {
+            return ["BM25", "tf-idf"];
+        };
+
+        this.getStemmer = function() {
+            return ["Porterstemmer", "Snowballstemmer"];
+        };
+
+        this.getSelectedCommonStemmerLang = function() {
+            return ["English", "German", "Spanish", "Finnish"];
+        };
+
+        this.getNormalizer = function() {
+            return ["Normalizer 1", "Normalizer 2"]
+        };
+
+        this.getOperators = function() {
+            return ["OR", "AND"]
+        };
+
 
         // Call the initialize function for every new instance
         this.initialize();
     };
 
     // Return a reference to the function
-    return (DribblePlayer);
+    return (CommonConfig);
 
 });

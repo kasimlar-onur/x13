@@ -177,13 +177,22 @@
         </table>
     </div>
 
-    <div class="saveButtonContainer saveButton">
-        <button type="submit" class="btn btn-primary"  ng-click="settingsForm.saveDataSet()">Upload files</button>
-        <!--<button ng-click="load()" class="btn btn-primary">CLICK ME</button>-->
+    <div class="saveButtonContainer">
+
+        <p>Type in a convenient name for the settings file and add a description.</p>
+        <label for="commonConfigName">File: </label>
+        <input id="commonConfigName" ng-model="commonConfigName" class="myInput" type="text" /> <br/><br/>
+        <label for="commonConfigDescription">Description: </label>
+        <textarea id="commonConfigDescription" ng-model="commonConfigDescription" rows="4" cols="42" type="text" />
+        <div class="dialogButton">
+            <button type="submit" class="btn btn-primary"  ng-click="settingsForm.saveDataSet()">Save</button>
+        </div>
+            <!--<button ng-click="load()" class="btn btn-primary">CLICK ME</button>-->
     </div>
 
 </div>
 
+<script src="js/main.js"></script>
 
 
 
